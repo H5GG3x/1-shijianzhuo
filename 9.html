@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<html>
+
+<head>
+
+    <title>时间戳转换器</title>
+
+    <style>
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            font-size: 50px; 
+
+        }
+
+        h1 {
+
+            font-size:  80px; 
+
+        }
+
+        .container {
+
+            max-width: 600px;
+
+            margin: 0 auto;
+
+            padding: 20px;
+
+        }
+
+        .input-group {
+
+            margin-bottom: 20px;
+
+            display: flex;
+
+            flex-direction: row;
+
+            align-items: center;
+
+            gap: 25px;
+
+        }
+
+        .input-group label {
+
+            display: inline-block;
+
+            margin-bottom: 5px;
+
+            font-size: 30px;
+
+        }
+
+        .input-group input {
+
+            width: 300px;
+
+            height: 50px;
+
+            font-size: 20px;
+
+        }
+
+        .input-group select {
+
+            width: 125px;
+
+            height: 50px;
+
+            font-size: 30px;
+
+        }
+
+        button {
+
+            width: 90px;
+
+            height: 60px;
+
+            font-size: 20px;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>时间戳转换器</h1>
+
+        <div class="input-group">
+
+            <label for="timestamp">请输入时间戳：</label>
+
+            <input type="text" id="timestamp" name="timestamp">
+
+            <select id="unit" name="unit">
+
+                <option value="second">秒</option>
+
+                <option value="millisecond">毫秒</option>
+
+            </select>
+
+        </div>
+
+        <button onclick="convertTimestamp()">转换</button>
+
+        <h2 id="result"></h2>
+
+        <div class="input-group">
+
+            <label for="date">请输入日期（格式：yyyy-mm-dd hh:mm:ss）：</label>
+
+            <div>
+
+                <input type="text" id="date" name="date">
+
+                <p style="font-size: 20px;">例如：2023-09-09 12:00:00</p>
+
+            </div>
+
+            <select id="unitDate" name="unitDate">
+
+                <option value="second">秒</option>
+
+                <option value="millisecond">毫秒</option>
+
+            </select>
+
+        </div>
+
+        <button onclick="convertDateToTimestamp()">转换日期</button>
+
+        <h2 id="dateResult"></h2>
+
+    </div>
+
+    <script type="text/javascript">
+
+        function convertTimestamp() {
+
+            var timestamp = document.getElementById('timestamp').value;
+
+            var unit = document.getElementById('unit').value;
+
+            if (unit === "second") {
+
+                timestamp = timestamp * 1000;
+
+            }
+
+            var date = new Date(timestamp);
+
+            var year = date.getFullYear();
+
+            var month = ("0" + (date.getMonth() + 1)).substr(-2);
+
+            var day = ("0" + date.getDate()).substr(-2);
+
+            var hours = ("0" + date.getHours()).substr(-2);
+
+            var minutes = ("0" + date.getMinutes()).substr(-2);
+
+            var seconds = ("0" + date.getSeconds()).substr(-2);
+
+            var formattedDate = year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+
+            document.getElementById('result').innerHTML = '转换结果：' + formattedDate;
+
+        }
+
+        function convertDateToTimestamp() {
+
+            var date = document.getElementById('date').value;
+
+            var unit = document.getElementById('unitDate').value;
+
+            var timestamp = new Date(date).getTime();
+
+            if (unit === "second") {
+
+                timestamp = timestamp / 1000;
+
+            }
+
+            document.getElementById('dateResult').innerHTML = '转换结果：' + timestamp;
+
+        }
+
+    </script>
+
+</body>
+
+</html>
